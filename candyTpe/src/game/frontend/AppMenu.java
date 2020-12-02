@@ -1,13 +1,18 @@
 package game.frontend;
 
+import game.backend.CandyGame;
+import game.backend.level.Level1;
+import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.util.Optional;
 
 public class AppMenu extends MenuBar {
 
-    public AppMenu() {
+    public AppMenu(Stage primaryStage) {
         Menu file = new Menu("Archivo");
         MenuItem exitMenuItem = new MenuItem("Salir");
         exitMenuItem.setOnAction(event -> {
@@ -37,6 +42,9 @@ public class AppMenu extends MenuBar {
 
         Menu levels = new Menu("Niveles");
         MenuItem level1 = new MenuItem("Nivel 1");
+        level1.setOnAction(event -> {
+            setLevel(primaryStage);
+        });
         MenuItem level2 = new MenuItem("Nivel 2");
         MenuItem level3 = new MenuItem("Nivel 3");
 
@@ -45,4 +53,12 @@ public class AppMenu extends MenuBar {
         getMenus().addAll(file, help, levels);
     }
 
+    private void setLevel(Stage primaryStage) {
+        CandyGame game = new CandyGame(Level1.class);
+        CandyFrame frame = new CandyFrame(game, primaryStage);
+        Scene scene = new Scene(frame);
+        primaryStage.setResizable(false);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
 }

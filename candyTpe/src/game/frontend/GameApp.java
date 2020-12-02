@@ -8,18 +8,27 @@ import javafx.stage.Stage;
 
 public class GameApp extends Application {
 
+	private Stage primaryStage;
+
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage primaryStage) {
+		this.primaryStage = primaryStage;
 		CandyGame game = new CandyGame(Level1.class);
-		CandyFrame frame = new CandyFrame(game);
+		CandyFrame frame = new CandyFrame(game, primaryStage);
 		Scene scene = new Scene(frame);
 		primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+
+	public Stage getPrimaryStage(Stage primaryStage){
+		return primaryStage;
+	}
+
+
 
 }
