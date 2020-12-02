@@ -18,16 +18,13 @@ public class GameApp extends Application {
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		CandyGame game = new CandyGame(Level1.class);
-		CandyFrame frame = new CandyFrame(game, primaryStage);
+		CandyFrame frame = new CandyFrame(game);
 		Scene scene = new Scene(frame);
 		primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
 
-	public Stage getPrimaryStage(Stage primaryStage){
-		return primaryStage;
-	}
 
 
 

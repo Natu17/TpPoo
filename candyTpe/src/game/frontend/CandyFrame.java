@@ -24,9 +24,9 @@ public class CandyFrame extends VBox {
 	private Point2D lastPoint;
 	private CandyGame game;
 
-	public CandyFrame(CandyGame game, Stage primaryStage) {
+	public CandyFrame(CandyGame game) {
 		this.game = game;
-		getChildren().add(new AppMenu(primaryStage));
+		getChildren().add(new AppMenu());
 		images = new ImageManager();
 		boardPanel = new BoardPanel(game.getSize(), game.getSize(), CELL_SIZE);
 		getChildren().add(boardPanel);
