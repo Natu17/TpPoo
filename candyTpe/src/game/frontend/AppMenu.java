@@ -34,7 +34,15 @@ public class AppMenu extends MenuBar {
             alert.showAndWait();
         });
         help.getItems().add(aboutMenuItem);
-        getMenus().addAll(file, help);
+
+        Menu levels = new Menu("Niveles");
+        MenuItem level1 = new MenuItem("Nivel 1");
+        MenuItem level2 = new MenuItem("Nivel 2");
+        MenuItem level3 = new MenuItem("Nivel 3");
+
+        levels.getItems().addAll(level1,level2,level3);
+
+        getMenus().addAll(file, help, levels);
     }
 
 }
