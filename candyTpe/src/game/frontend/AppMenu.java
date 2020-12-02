@@ -45,16 +45,17 @@ public class AppMenu extends MenuBar {
         help.getItems().add(aboutMenuItem);
 
         Menu levels = new Menu("Niveles");
-
-        MenuItem level1 = new MenuItem("Nivel 1");
-        level1.setOnAction(event -> {
-            setLevel(Level1.class);
-        });
-        MenuItem level2 = new MenuItem("Nivel 2");
-
-        MenuItem level3 = new MenuItem("Nivel 3");
-
-        levels.getItems().addAll(level1,level2,level3);
+        List<Class<?>> levs = new ArrayList<>();
+        levs.add(Level1.class);
+        levs.add(Level2.class);
+        levs.add(Level3.class);
+        Integer i =1;
+        for(Class<?> lev : levs){
+           MenuItem level = new MenuItem("Nivel " + i.toString());
+           level.setOnAction(event -> setLevel(lev));
+           levels.getItems().add(level);
+           i++;
+       }
 
         getMenus().addAll(file, help, levels);
     }
