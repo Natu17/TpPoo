@@ -24,7 +24,7 @@ public abstract class Grid {
 	private MoveMaker moveMaker;
 	private FigureDetector figureDetector;
 	
-	protected abstract GameState newState();
+	protected abstract GameState newState(); //NO USAR PROTEGIDOS!!! ALTERA EL ENCAPSULAMIENTO DE LAS CLASES
 	protected abstract void fillCells();
 	
 	protected Cell[][] g() {

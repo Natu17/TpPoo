@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,9 +47,7 @@ public class AppMenu extends MenuBar {
 
         Menu levels = new Menu("Niveles");
         List<Class<?>> levs = new ArrayList<>();
-        levs.add(Level1.class);
-        levs.add(Level2.class);
-        levs.add(Level3.class);
+        Collections.addAll(levs,Level1.class,Level2.class,Level3.class);
         Integer i =1;
         for(Class<?> lev : levs){
            MenuItem level = new MenuItem("Nivel " + i.toString());
