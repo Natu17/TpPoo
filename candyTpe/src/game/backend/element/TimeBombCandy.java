@@ -8,7 +8,7 @@ public class TimeBombCandy extends Candy{
     TimeBombCandy(int moves){
         this.moves = moves;
     }
-    public void move(){
+    public void subMove(){
         moves --;
     }
 
