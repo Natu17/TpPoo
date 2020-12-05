@@ -18,7 +18,7 @@ public class Level2 extends Grid {
 
     @Override
     protected void fillCells() {
-        CandyGeneratorCell candyGeneratorCell = new CandyGeneratorCell(this,1,createSpecial);
+        CandyGeneratorCell candyGeneratorCell = new CandyGeneratorCell(this,5,createSpecial);
         fillCells(candyGeneratorCell);
     }
 
