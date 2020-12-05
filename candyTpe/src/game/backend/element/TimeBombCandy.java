@@ -5,7 +5,8 @@ public class TimeBombCandy extends Candy{
 
     int moves;
 
-    TimeBombCandy(int moves){
+    public TimeBombCandy(int moves, CandyColor color){
+        super(color);
         this.moves = moves;
     }
     public void subMove(){

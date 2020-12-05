@@ -4,11 +4,11 @@ import game.backend.GameState;
 import game.backend.Grid;
 import game.backend.cell.CandyGeneratorCell;
 import game.backend.cell.Cell;
-import game.backend.element.TimeBombCandy;
-import game.backend.element.Wall;
+import game.backend.element.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class Level2 extends Grid {
 
@@ -16,6 +16,11 @@ public class Level2 extends Grid {
     private static int REQUIRED_SCORE = 5000;
     private static int MAX_BOMBS = 20;
 
+    @Override
+    protected void fillCells() {
+        CandyGeneratorCell candyGeneratorCell = new CandyGeneratorCell(this,1,createSpecial);
+        fillCells(candyGeneratorCell);
+    }
 
     @Override
     protected GameState newState() {
@@ -32,7 +37,10 @@ public class Level2 extends Grid {
         return ret;
     }
 
-
+    public Supplier<Element> createSpecial = ()->{
+        int i = (int)(Math.random() * CandyColor.values().length);
+        return new Candy(CandyColor.values()[i]);
+    };
 
     private class Level2State extends GameState {
         private List<TimeBombCandy> timeBombCandiesNow; //ver si es lo mejor

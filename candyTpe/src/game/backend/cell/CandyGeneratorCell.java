@@ -4,26 +4,30 @@ import game.backend.Grid;
 import game.backend.element.Candy;
 import game.backend.element.CandyColor;
 import game.backend.element.Element;
+import sun.text.resources.pl.JavaTimeSupplementary_pl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class CandyGeneratorCell extends Cell {
 	double prob;
-	List<Class<?>> specialElements;
+	Supplier<Element> createSpecial;
+	int count = 0;
 
-	public CandyGeneratorCell(Grid grid, double prob, List<Class<?>> specialElements) {
+	public CandyGeneratorCell(Grid grid, double prob, Supplier<Element> createSpecials) {
 		super(grid);
 		this.prob = prob;
-		this.specialElements = specialElements;
+		this.createSpecial = createSpecials;
 
 	}
 
 	public CandyGeneratorCell(Grid grid){
 		super(grid);
 		prob = 0;
-		specialElements = new ArrayList<>();
+		createSpecial = ()->null;
 	}
 
 
@@ -42,13 +46,8 @@ public class CandyGeneratorCell extends Cell {
 	public Element getContent() {
 		int i = (int)(Math.random() * CandyColor.values().length);
 		if(prob >= (int) Math.random()*100 + 1){
-			int j = (int)(Math.random()*specialElements.size());
-			try {
-				return (Element) specialElements.get(j).newInstance();
-			}catch(IllegalAccessException | InstantiationException e) { //ver si es lo mejor
-			System.out.println("ERROR AL INICIAR");
-			return null;
-		}
+			count++;
+			return createSpecial.get();
 		}else return new Candy(CandyColor.values()[i]);
 	}
 

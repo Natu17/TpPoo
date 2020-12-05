@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public abstract class Grid {
 	
@@ -30,11 +31,13 @@ public abstract class Grid {
 
 	protected abstract GameState newState(); //NO USAR PROTEGIDOS!!! ALTERA EL ENCAPSULAMIENTO DE LAS CLASES
 
-	protected void fillCells() {
+	protected abstract void fillCells();
+
+	public void fillCells(CandyGeneratorCell candyGenCell) {
 
 		wallCell = new Cell(this);
 		wallCell.setContent(new Wall());
-		candyGenCell = new CandyGeneratorCell(this);
+		this.candyGenCell = candyGenCell;
 
 		//corners
 		g()[0][0].setAround(candyGenCell, g()[1][0], wallCell, g()[0][1]);
