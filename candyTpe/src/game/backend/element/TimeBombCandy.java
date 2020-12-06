@@ -10,7 +10,7 @@ public class TimeBombCandy extends Candy{
         this.moves = moves;
 
     }
-    public void subMove(){
+    public void removeMove(){
         moves --;
     }
 
