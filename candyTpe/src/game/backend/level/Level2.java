@@ -15,16 +15,19 @@ public class Level2 extends Grid {
 
     private static int REQUIRED_SCORE = 5000;
     private static int MAX_BOMBS = 20;
+    private static int MAX_MOVES = 15;
+    private Level2State level2State;
 
     @Override
     protected void fillCells() {
-        CandyGeneratorCell candyGeneratorCell = new CandyGeneratorCell(this,5,createSpecial);
+        CandyGeneratorCell candyGeneratorCell = new CandyGeneratorCell(this,3,createBomb);
         fillCells(candyGeneratorCell);
     }
 
     @Override
     protected GameState newState() {
-        return new Level2State(REQUIRED_SCORE,MAX_BOMBS);
+        level2State = new Level2State(REQUIRED_SCORE,MAX_BOMBS);
+        return level2State;
 
     }
 
@@ -37,13 +40,15 @@ public class Level2 extends Grid {
         return ret;
     }
 
-    public Supplier<Element> createSpecial = ()->{
+    public Supplier<Element> createBomb = ()->{
         int i = (int)(Math.random() * CandyColor.values().length);
-        return new Candy(CandyColor.values()[i]);
+        TimeBombCandy timeBombCandy = new TimeBombCandy(MAX_MOVES,CandyColor.values()[i]);
+        level2State.timeBombCandiesNow.add(timeBombCandy);
+        return (Element) timeBombCandy;
     };
 
     private class Level2State extends GameState {
-        private List<TimeBombCandy> timeBombCandiesNow; //ver si es lo mejor
+        private List<TimeBombCandy> timeBombCandiesNow;
         private long requiredScore;
         private long maxBombs;
 
@@ -62,7 +67,7 @@ public class Level2 extends Grid {
             return playerWon() || timeBombCandiesNow.get(0).getMoves() == 0;
         }
         public boolean playerWon() {
-            return timeBombCandiesNow.size() == 0;
+            return maxBombs == 0;
         }
     }
 

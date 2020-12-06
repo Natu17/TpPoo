@@ -46,8 +46,6 @@ public class CandyGeneratorCell extends Cell {
 	public Element getContent() {
 		int i = (int)(Math.random() * CandyColor.values().length);
 		if(prob >= (int) (Math.random()*100 + 1)){
-			count++;
-			System.out.println(count);
 			return createSpecial.get();
 		}else return new Candy(CandyColor.values()[i]);
 	}

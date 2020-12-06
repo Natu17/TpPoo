@@ -27,7 +27,7 @@ public class BoardPanel extends TilePane {
 			}
 		}
 	}
-	public void setImageWithNumbers(int row, int column, Image image) {
+	public void setImage(int row, int column, Image image, Text text) {
 		cells[row][column].getChildren().add(new ImageView(image));
 		DropShadow dropShadow = new DropShadow();
 		dropShadow.setRadius(3.0);
@@ -35,7 +35,6 @@ public class BoardPanel extends TilePane {
 		dropShadow.setOffsetY(3.0);
 		dropShadow.setColor(Color.ORANGERED);
 
-		Text text = new Text("10");
 		text.setFont(Font.font("Impact", FontWeight.BOLD, 40));
 		text.setFill(Color.BLACK);
 		text.setEffect(dropShadow);
