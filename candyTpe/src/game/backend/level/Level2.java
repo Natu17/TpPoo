@@ -28,7 +28,7 @@ public class Level2 extends Grid {
 
     @Override
     protected GameState newState() {
-        level2State = new Level2State(MAX_BOMBS);
+        level2State = new Level2State(MAX_BOMBS, REQUIRED_SCORE);
         return level2State;
 
     }
@@ -64,10 +64,12 @@ public class Level2 extends Grid {
     private class Level2State extends GameState {
         private List<TimeBombCandy> timeBombCandiesNow;
         private int maxBombs;
+        private long requiredScore;
 
-        public Level2State(int maxBombs) {
+        public Level2State(int maxBombs, long requiredScore) {
             this.maxBombs = maxBombs;
             timeBombCandiesNow = new ArrayList<>();
+            this.requiredScore = requiredScore;
         }
         public int getBombsAlredyAppear() {
             return MAX_BOMBS-maxBombs + timeBombCandiesNow.size();
@@ -90,6 +92,10 @@ public class Level2 extends Grid {
 
         public boolean playerWon() {
             return maxBombs == 0;
+        }
+
+        public String getState(){
+            return super.getState() + " Movientos Restantes: " + String.valueOf(timeBombCandiesNow.get(0).getMoves());
         }
     }
 

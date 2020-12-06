@@ -32,10 +32,12 @@ public class CandyFrame extends VBox {
 		images = new ImageManager();
 		boardPanel = new BoardPanel(game.getSize(), game.getSize(), CELL_SIZE);
 		getChildren().add(boardPanel);
-		scorePanel = new ScorePanel();
-		getChildren().add(scorePanel);
+
 
 		game.initGame();
+		scorePanel = new ScorePanel(game.getState());
+		getChildren().add(scorePanel);
+
 		GameListener listener;
 		game.addGameListener(listener = new GameListener() {
 			@Override
@@ -75,16 +77,20 @@ public class CandyFrame extends VBox {
 				Point2D newPoint = translateCoords(event.getX(), event.getY());
 				if (newPoint != null) {
 					System.out.println("Get second = " +  newPoint);
-					game().tryMove((int)lastPoint.getX(), (int)lastPoint.getY(), (int)newPoint.getX(), (int)newPoint.getY());
-					String message = ((Long)game().getScore()).toString();
-					if (game().isFinished()) {
-						if (game().playerWon()) {
-							message = message + " Finished - Player Won!";
-						} else {
-							message = message + " Finished - Loser !";
+					if(game().tryMove((int)lastPoint.getX(), (int)lastPoint.getY(), (int)newPoint.getX(), (int)newPoint.getY())){
+						String message = game().getState();
+						if (game().isFinished()) {
+							if (game().playerWon()) {
+								message = message + " Finished - Player Won!";
+							} else {
+								message = message + " Finished - Loser !";
+							}
 						}
+						scorePanel.updateScore(message);
 					}
-					scorePanel.updateScore(message);
+
+
+
 					lastPoint = null;
 				}
 			}
