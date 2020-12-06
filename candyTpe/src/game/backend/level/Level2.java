@@ -19,7 +19,6 @@ public class Level2 extends Grid {
     private static int MAX_BOMBS = 10;
     private static int MAX_MOVES = 15;
     private Level2State level2State;
-    private GameListener listener;
 
     @Override
     protected void fillCells() {
@@ -34,31 +33,14 @@ public class Level2 extends Grid {
 
     }
 
-
-    @Override
-    public void initialize() {
-        super.initialize();
-        this.addListener(new GameListener() {
-            @Override
-            public void gridUpdated() {
-
-            }
-
-            @Override
-            public void cellExplosion(Element e) {
-                if(e.getClass() == TimeBombCandy.class){
-                    level2State.removeBombs((TimeBombCandy) e);
-                }
-            }
-        });
-    }
-
     @Override
     public boolean tryMove(int i1, int j1, int i2, int j2) {
         boolean ret;
+        level2State.moves(-1);
         if (ret = super.tryMove(i1, j1, i2, j2)) {
-            state().addMove();
-            level2State.removeMoves();
+            level2State.addMove();
+        }else{
+            level2State.moves(1);
         }
         return ret;
     }
@@ -72,7 +54,6 @@ public class Level2 extends Grid {
             Candy candy = new Candy(CandyColor.values()[i]);
             return (Element) candy;
         }else {
-            System.out.println(level2State.getBombsAlredyAppear());
             TimeBombCandy timeBombCandy = new TimeBombCandy(MAX_MOVES, CandyColor.values()[i]);
             level2State.addBombs(timeBombCandy);
             return (Element) timeBombCandy;
@@ -83,14 +64,11 @@ public class Level2 extends Grid {
     private class Level2State extends GameState {
         private List<TimeBombCandy> timeBombCandiesNow;
         private int maxBombs;
-        private int removeBombs;
 
         public Level2State(int maxBombs) {
             this.maxBombs = maxBombs;
             timeBombCandiesNow = new ArrayList<>();
-            removeBombs = 0;
         }
-
         public int getBombsAlredyAppear() {
             return MAX_BOMBS-maxBombs + timeBombCandiesNow.size();
         }
@@ -98,11 +76,9 @@ public class Level2 extends Grid {
         public void addBombs(TimeBombCandy timeBombCandy){
             timeBombCandiesNow.add(timeBombCandy);
         }
-        public void removeMoves(){
 
-            timeBombCandiesNow.forEach(timeBombCandy -> timeBombCandy.removeMove());
-
-
+        public void moves(int n){
+            timeBombCandiesNow.forEach(timeBombCandy -> timeBombCandy.setMove(n));
         }
 
         public void removeBombs(TimeBombCandy timeBombCandy){
@@ -110,12 +86,18 @@ public class Level2 extends Grid {
             maxBombs --;
         }
 
+        public boolean gameOver() { return playerWon() || (timeBombCandiesNow.size()!=0 && timeBombCandiesNow.get(0).getMoves() == 0); }
 
-        public boolean gameOver() {
-            return playerWon() || (timeBombCandiesNow.size()!=0 && timeBombCandiesNow.get(0).getMoves() == 0);
-        }
         public boolean playerWon() {
             return maxBombs == 0;
+        }
+    }
+
+    @Override
+    public void cellExplosion(Element e) {
+        super.cellExplosion(e);
+        if (e.getClass() == TimeBombCandy.class) {
+            level2State.removeBombs((TimeBombCandy) e);
         }
     }
 
