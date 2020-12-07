@@ -95,7 +95,10 @@ public class Level2 extends Grid {
         }
 
         public String getState(){
-            return super.getState() + " Movientos Restantes: " + String.valueOf(timeBombCandiesNow.get(0).getMoves());
+            if(timeBombCandiesNow.size() > 0) {
+                return super.getState() + " Movientos Restantes: " + String.valueOf(timeBombCandiesNow.get(0).getMoves());
+            }
+            return super.getState();
         }
     }
 
