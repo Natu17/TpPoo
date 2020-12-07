@@ -1,8 +1,10 @@
 package game.backend.level;
 
+import game.backend.GameListener;
 import game.backend.GameState;
 import game.backend.Grid;
 import game.backend.cell.CandyGeneratorCell;
+import game.backend.cell.Cell;
 import game.backend.element.*;
 
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ public class Level3 extends Grid {
         boolean ret;
         if (ret = super.tryMove(i1, j1, i2, j2)) {
             state().addMove();
+            Cell[][] myMatrix = g();
         }
         return ret;
     }
@@ -57,6 +60,8 @@ public class Level3 extends Grid {
         }
 
     };
+
+
 
     private class Level3State extends GameState {
         private int requiredFruits;
@@ -83,6 +88,13 @@ public class Level3 extends Grid {
 
         public void addFruits(Fruit fruit){
             fruitsNow.add(fruit);
+        }
+    }
+
+
+    public void cellExplosion(Element e) {
+        if (e.getClass() != Fruit.class) {
+            super.cellExplosion(e);
         }
     }
 

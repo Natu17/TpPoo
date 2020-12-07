@@ -32,4 +32,5 @@ public class Fruit extends Element {
     public String getFullKey() {
         return type.toString();
     }
+
 }
