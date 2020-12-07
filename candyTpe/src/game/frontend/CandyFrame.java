@@ -26,6 +26,7 @@ public class CandyFrame extends VBox {
 	private CandyGame game;
 
 	public CandyFrame(CandyGame game) {
+
 		this.game = game;
 
 		getChildren().add(new AppMenu());
@@ -70,28 +71,29 @@ public class CandyFrame extends VBox {
 		listener.gridUpdated();
 
 		addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			if (lastPoint == null) {
-				lastPoint = translateCoords(event.getX(), event.getY());
-				System.out.println("Get first = " +  lastPoint);
-			} else {
-				Point2D newPoint = translateCoords(event.getX(), event.getY());
-				if (newPoint != null) {
-					System.out.println("Get second = " +  newPoint);
-					if(game().tryMove((int)lastPoint.getX(), (int)lastPoint.getY(), (int)newPoint.getX(), (int)newPoint.getY())){
-						String message = game().getState();
-						if (game().isFinished()) {
-							if (game().playerWon()) {
-								message = message + " Finished - Player Won!";
-							} else {
-								message = message + " Finished - Loser !";
+			if (!game().isFinished()) {
+				if (lastPoint == null) {
+					lastPoint = translateCoords(event.getX(), event.getY());
+					System.out.println("Get first = " + lastPoint);
+				} else {
+					Point2D newPoint = translateCoords(event.getX(), event.getY());
+					if (newPoint != null) {
+						System.out.println("Get second = " + newPoint);
+						if (game().tryMove((int) lastPoint.getX(), (int) lastPoint.getY(), (int) newPoint.getX(), (int) newPoint.getY())) {
+							String message = game().getState();
+							if (game().isFinished()) {
+								if (game().playerWon()) {
+									message = message + " Finished - Player Won!";
+								} else {
+									message = message + " Finished - Loser !";
+								}
 							}
+							scorePanel.updateScore(message);
 						}
-						scorePanel.updateScore(message);
+
+
+						lastPoint = null;
 					}
-
-
-
-					lastPoint = null;
 				}
 			}
 		});
@@ -106,10 +108,6 @@ public class CandyFrame extends VBox {
 		double i = x / CELL_SIZE;
 		double j = y / CELL_SIZE;
 		return (i >= 0 && i < game.getSize() && j >= 0 && j < game.getSize()) ? new Point2D(j, i) : null;
-	}
-
-	public void addImage(Element e){
-
 	}
 
 
