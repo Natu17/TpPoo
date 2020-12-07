@@ -15,7 +15,6 @@ import java.util.function.Supplier;
 public class CandyGeneratorCell extends Cell {
 	double prob;
 	Supplier<Element> createSpecial;
-	int count = 0;
 
 	public CandyGeneratorCell(Grid grid, double prob, Supplier<Element> createSpecials) {
 		super(grid);
@@ -45,7 +44,7 @@ public class CandyGeneratorCell extends Cell {
 
 	public Element getContent() {
 		int i = (int)(Math.random() * CandyColor.values().length);
-		if(prob >= (int) (Math.random()*100 + 1)){
+		if(prob >= (Math.random()*100 + 1)){
 			return createSpecial.get();
 		}else return new Candy(CandyColor.values()[i]);
 	}
