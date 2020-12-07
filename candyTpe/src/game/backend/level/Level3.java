@@ -46,11 +46,11 @@ public class Level3 extends Grid {
             return (Element) candy;
         }else {
             if (i % 2 == 0) {
-                Fruit hazelnut = new Hazelnut();
+                Fruit hazelnut = new Fruit(FruitType.HAZELNUT);
                 level3State.addFruits(hazelnut);
                 return (Element) hazelnut;
             }else {
-                Fruit cherry = new Cherry();
+                Fruit cherry = new Fruit(FruitType.CHERRY);
                 level3State.addFruits(cherry);
                 return (Element) cherry;
             }
