@@ -1,5 +1,9 @@
 package game.backend.element;
 
+import javafx.beans.binding.ListExpression;
+
+import java.util.Objects;
+
 public class Fruit extends Element {
 
     private FruitType type;

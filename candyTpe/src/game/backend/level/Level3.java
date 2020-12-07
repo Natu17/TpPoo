@@ -17,6 +17,8 @@ public class Level3 extends Grid {
     private static int MAX_MOVES = 20;
     private static int MAX_FRUITS = 7;
     private Level3State level3State;
+
+
     @Override
     protected void fillCells() {
         CandyGeneratorCell candyGeneratorCell = new CandyGeneratorCell(this, 5, createFruit);
@@ -36,7 +38,6 @@ public class Level3 extends Grid {
         boolean ret;
         if (ret = super.tryMove(i1, j1, i2, j2)) {
             state().addMove();
-            Cell[][] myMatrix = g();
         }
         return ret;
     }
@@ -61,7 +62,17 @@ public class Level3 extends Grid {
 
     };
 
+    @Override
+    public void fallElements() {
+        super.fallElements();
+        for (int i = 0; i < SIZE ; i++) {
+            if (g()[SIZE - 1][i].getContent().getClass() == Fruit.class) {
+                g()[SIZE - 1][i].clearContent();
+                fallElements();
+            }
 
+        }
+    }
 
     private class Level3State extends GameState {
         private int requiredFruits;
@@ -91,12 +102,10 @@ public class Level3 extends Grid {
         }
     }
 
-
+    @Override
     public void cellExplosion(Element e) {
         if (e.getClass() != Fruit.class) {
             super.cellExplosion(e);
         }
     }
-
-
 }
