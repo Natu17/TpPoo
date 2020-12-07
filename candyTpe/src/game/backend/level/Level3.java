@@ -3,22 +3,28 @@ package game.backend.level;
 import game.backend.GameState;
 import game.backend.Grid;
 import game.backend.cell.CandyGeneratorCell;
+import game.backend.element.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
 
 public class Level3 extends Grid {
-    @Override
-    protected void fillCells() {
-        CandyGeneratorCell candyGeneratorCell = new CandyGeneratorCell(this);
-        fillCells(candyGeneratorCell);
-    }
 
     private static int REQUIRED_SCORE = 5000;
     private static int MAX_MOVES = 20;
-
-
+    private static int MAX_FRUITS = 7;
+    private Level3State level3State;
+    @Override
+    protected void fillCells() {
+        CandyGeneratorCell candyGeneratorCell = new CandyGeneratorCell(this, 5, createFruit);
+        fillCells(candyGeneratorCell);
+    }
 
     @Override
     protected GameState newState() {
-        return new Level3.Level3State(REQUIRED_SCORE, MAX_MOVES);
+        level3State = new Level3.Level3State(MAX_FRUITS, MAX_MOVES);
+        return level3State;
     }
 
 
@@ -32,12 +38,34 @@ public class Level3 extends Grid {
         return ret;
     }
 
-    private class Level3State extends GameState {
-        private long requiredScore;
-        private long maxMoves;
+    public Supplier<Element> createFruit = ()->{
+        int i = (int)(Math.random() * CandyColor.values().length);
 
-        public Level3State(long requiredScore, int maxMoves) {
-            this.requiredScore = requiredScore;
+        if(level3State.getFruitsAlreadyAppear() >= MAX_FRUITS){
+            Candy candy = new Candy(CandyColor.values()[i]);
+            return (Element) candy;
+        }else {
+            if (i % 2 == 0) {
+                Fruit hazelnut = new Hazelnut();
+                level3State.addFruits(hazelnut);
+                return (Element) hazelnut;
+            }else {
+                Fruit cherry = new Cherry();
+                level3State.addFruits(cherry);
+                return (Element) cherry;
+            }
+        }
+
+    };
+
+    private class Level3State extends GameState {
+        private int requiredFruits;
+        private long maxMoves;
+        private List<Fruit> fruitsNow;
+
+        public Level3State(int requiredFruits, int maxMoves) {
+            fruitsNow = new ArrayList<>();
+            this.requiredFruits = requiredFruits;
             this.maxMoves = maxMoves;
         }
 
@@ -46,9 +74,17 @@ public class Level3 extends Grid {
         }
 
         public boolean playerWon() {
-            return getScore() > requiredScore;
+            return requiredFruits == 0;
         }
 
+        public int getFruitsAlreadyAppear() {
+            return MAX_FRUITS-requiredFruits + fruitsNow.size();
+        }
+
+        public void addFruits(Fruit fruit){
+            fruitsNow.add(fruit);
+        }
     }
+
 
 }
