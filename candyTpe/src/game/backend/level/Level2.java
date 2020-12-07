@@ -15,20 +15,20 @@ import java.util.function.Supplier;
 
 public class Level2 extends Grid {
 
-    private static int REQUIRED_SCORE = 5000;
     private static int MAX_BOMBS = 10;
     private static int MAX_MOVES = 15;
+    private static int PROBABILITY = 5;
     private Level2State level2State;
 
     @Override
     protected void fillCells() {
-        CandyGeneratorCell candyGeneratorCell = new CandyGeneratorCell(this,5,createBomb);
+        CandyGeneratorCell candyGeneratorCell = new CandyGeneratorCell(this,PROBABILITY,createBomb);
         fillCells(candyGeneratorCell);
     }
 
     @Override
     protected GameState newState() {
-        level2State = new Level2State(MAX_BOMBS, REQUIRED_SCORE);
+        level2State = new Level2State(MAX_BOMBS);
         return level2State;
 
     }
@@ -64,12 +64,10 @@ public class Level2 extends Grid {
     private class Level2State extends GameState {
         private List<TimeBombCandy> timeBombCandiesNow;
         private int maxBombs;
-        private long requiredScore;
 
-        public Level2State(int maxBombs, long requiredScore) {
+        public Level2State(int maxBombs) {
             this.maxBombs = maxBombs;
             timeBombCandiesNow = new ArrayList<>();
-            this.requiredScore = requiredScore;
         }
         public int getBombsAlredyAppear() {
             return MAX_BOMBS-maxBombs + timeBombCandiesNow.size();
@@ -95,7 +93,10 @@ public class Level2 extends Grid {
         }
 
         public String getState(){
-            return super.getState() + " Movientos Restantes: " + String.valueOf(timeBombCandiesNow.get(0).getMoves());
+            if(timeBombCandiesNow.size() > 0) {
+                return super.getState() + " Movientos Restantes: " + String.valueOf(timeBombCandiesNow.get(0).getMoves());
+            }
+            return super.getState();
         }
     }
 

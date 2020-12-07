@@ -29,7 +29,7 @@ public abstract class Grid {
 	private Cell wallCell;
 	private Cell candyGenCell;
 
-	protected abstract GameState newState(); //NO USAR PROTEGIDOS!!! ALTERA EL ENCAPSULAMIENTO DE LAS CLASES
+	protected abstract GameState newState();
 
 	protected abstract void fillCells();
 
