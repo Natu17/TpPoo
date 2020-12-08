@@ -36,12 +36,12 @@ public class Level2 extends Grid {
     @Override
     public boolean tryMove(int i1, int j1, int i2, int j2) {
         boolean ret;
-        level2State.moves(-1);
+
         if (ret = super.tryMove(i1, j1, i2, j2)) {
             level2State.addMove();
-        }else{
-            level2State.moves(1);
+            level2State.moves(-1);
         }
+        wasUpdated();
         return ret;
     }
 
@@ -106,6 +106,7 @@ public class Level2 extends Grid {
         if (e instanceof TimeBombCandy) {
             level2State.removeBombs((TimeBombCandy) e);
         }
+
 
     }
 

@@ -37,5 +37,9 @@ public class Fruit extends Element {
         return type.toString() + "-FRUIT";
     }
 
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        return false;
+    }
 }

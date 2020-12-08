@@ -128,7 +128,6 @@ public abstract class Grid {
 		Move move = moveMaker.getMove(i1, j1, i2, j2);
 		swapContent(i1, j1, i2, j2);
 		if (move.isValid()) {
-			wasUpdated();
 			move.removeElements();
 			fallElements();
 			return true;
@@ -166,6 +165,7 @@ public abstract class Grid {
 		Element e = g[i1][j1].getContent();
 		g[i1][j1].setContent(g[i2][j2].getContent());
 		g[i2][j2].setContent(e);
+		wasUpdated();
 	}
 	
 	public GameState createState() {

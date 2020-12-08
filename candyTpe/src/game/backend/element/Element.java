@@ -29,6 +29,7 @@ public abstract class Element {
 	public String stringSpecial(){
 		return null;
 	}
+
 	public boolean getExplode(){
 		return explode;
 	}
