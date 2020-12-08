@@ -14,14 +14,14 @@ import java.util.function.Supplier;
 public class Level3 extends Grid {
 
     private static int REQUIRED_SCORE = 5000;
-    private static int MAX_MOVES = 20;
-    private static int MAX_FRUITS = 7;
+    private static int MAX_MOVES = 30;
+    private static int MAX_FRUITS = 5;
     private Level3State level3State;
 
 
     @Override
     protected void fillCells() {
-        CandyGeneratorCell candyGeneratorCell = new CandyGeneratorCell(this, 5, createFruit);
+        CandyGeneratorCell candyGeneratorCell = new CandyGeneratorCell(this, 10, createFruit);
         fillCells(candyGeneratorCell);
     }
 
@@ -45,7 +45,7 @@ public class Level3 extends Grid {
     public Supplier<Element> createFruit = ()->{
         int i = (int)(Math.random() * CandyColor.values().length);
 
-        if(level3State.getFruitsAlreadyAppear() >= MAX_FRUITS){
+        if(level3State.getFruitsAppeared() >= MAX_FRUITS){
             Candy candy = new Candy(CandyColor.values()[i]);
             return (Element) candy;
         }else {
@@ -68,6 +68,7 @@ public class Level3 extends Grid {
         for (int i = 0; i < SIZE ; i++) {
             if (g()[SIZE - 1][i].getContent().getClass() == Fruit.class) {
                 g()[SIZE - 1][i].clearContent();
+                level3State.removeFruit();
                 fallElements();
             }
 
@@ -77,10 +78,11 @@ public class Level3 extends Grid {
     private class Level3State extends GameState {
         private int requiredFruits;
         private long maxMoves;
-        private List<Fruit> fruitsNow;
+        private int fruitsAppeared;
+
+
 
         public Level3State(int requiredFruits, int maxMoves) {
-            fruitsNow = new ArrayList<>();
             this.requiredFruits = requiredFruits;
             this.maxMoves = maxMoves;
         }
@@ -90,22 +92,32 @@ public class Level3 extends Grid {
         }
 
         public boolean playerWon() {
-            return requiredFruits == 0;
+            return requiredFruits <= 0;
         }
 
-        public int getFruitsAlreadyAppear() {
-            return MAX_FRUITS-requiredFruits + fruitsNow.size();
+        public int getFruitsAppeared() {
+            return fruitsAppeared;
         }
 
         public void addFruits(Fruit fruit){
-            fruitsNow.add(fruit);
+            fruitsAppeared++;
+        }
+
+        public void removeFruit() {
+            requiredFruits--;
+        }
+
+        @Override
+        public String getState() {
+            return super.getState() + " Movimientos " + String.valueOf(maxMoves - getMoves()) + " Frutas " + String.valueOf(requiredFruits);
         }
     }
 
     @Override
     public void cellExplosion(Element e) {
-        if (e.getClass() != Fruit.class) {
+        if (!(e instanceof Fruit)) {
             super.cellExplosion(e);
         }
     }
+
 }
