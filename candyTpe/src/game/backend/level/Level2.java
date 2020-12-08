@@ -103,7 +103,7 @@ public class Level2 extends Grid {
     @Override
     public void cellExplosion(Element e) {
         super.cellExplosion(e);
-        if (e.getClass() == TimeBombCandy.class) {
+        if (e instanceof TimeBombCandy) {
             level2State.removeBombs((TimeBombCandy) e);
         }
     }
