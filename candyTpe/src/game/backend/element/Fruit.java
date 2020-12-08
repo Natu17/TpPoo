@@ -32,12 +32,10 @@ public class Fruit extends Element {
         return "FRUIT";
     }
 
-
-   /* @Override
+    @Override
     public String getFullKey() {
-        return type.toString();
+        return type.toString() + "-FRUIT";
     }
 
-    */
 
 }
