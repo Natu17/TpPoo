@@ -17,7 +17,7 @@ public class Level2 extends Grid {
 
     private static int MAX_BOMBS = 10;
     private static int MAX_MOVES = 15;
-    private static int PROBABILITY = 5;
+    private static double PROBABILITY = 0.05;
     private Level2State level2State;
 
     @Override

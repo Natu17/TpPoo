@@ -11,6 +11,8 @@ public class TwoWrappedMove extends Move {
 	@Override
 	public void removeElements() {
 		int currI, currJ;
+		clearContent(i1,j1);
+		clearContent(i2,j2); // si no nunca se borran los caramelos
 		if (i1 == i2) {
 			if (j1 < j2) {
 				currI = i1;

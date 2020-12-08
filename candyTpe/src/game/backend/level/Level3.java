@@ -15,14 +15,15 @@ import java.util.function.Supplier;
 
 public class Level3 extends Grid {
 
-    private static int MAX_MOVES = 50;
+    private static int MAX_MOVES = 40;
     private static int MAX_FRUITS = 5;
+    private static double PROBABILITY = 0.05;
     private Level3State level3State;
 
 
     @Override
     protected void fillCells() {
-        CandyGeneratorCell candyGeneratorCell = new CandyGeneratorCell(this, 3, createFruit);
+        CandyGeneratorCell candyGeneratorCell = new CandyGeneratorCell(this, PROBABILITY, createFruit);
         fillCells(candyGeneratorCell);
     }
 
