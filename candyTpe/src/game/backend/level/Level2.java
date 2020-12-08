@@ -106,6 +106,7 @@ public class Level2 extends Grid {
         if (e instanceof TimeBombCandy) {
             level2State.removeBombs((TimeBombCandy) e);
         }
+
     }
 
 

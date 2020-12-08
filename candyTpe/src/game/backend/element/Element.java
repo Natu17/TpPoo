@@ -3,6 +3,8 @@ package game.backend.element;
 import game.backend.move.Direction;
 
 public abstract class Element {
+
+	private boolean explode = true;
 	
 	public abstract boolean isMovable();
 	
@@ -26,6 +28,13 @@ public abstract class Element {
 
 	public String stringSpecial(){
 		return null;
+	}
+	public boolean getExplode(){
+		return explode;
+	}
+
+	public void setExplode(boolean explode){
+		this.explode = explode;
 	}
 	
 }
