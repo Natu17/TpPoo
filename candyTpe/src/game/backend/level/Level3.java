@@ -21,14 +21,6 @@ public class Level3 extends Grid {
 
 
     @Override
-    public void clearContent(int i, int j) {
-        if (!(g()[i][j].getContent() instanceof Fruit)) {
-            super.clearContent(i, j);
-        }
-
-    }
-
-    @Override
     protected void fillCells() {
         CandyGeneratorCell candyGeneratorCell = new CandyGeneratorCell(this, 3, createFruit);
         fillCells(candyGeneratorCell);
@@ -121,23 +113,8 @@ public class Level3 extends Grid {
 
         @Override
         public String getState() {
+            if(gameOver()) return super.getState();
             return super.getState() + " Movimientos " + String.valueOf(maxMoves - getMoves()) + " Frutas " + String.valueOf(requiredFruits);
         }
-    }
-
-    @Override
-    public void cellExplosion(Element e) {
-        if (!(e instanceof Fruit) || e.getExplode()) {
-            super.cellExplosion(e);
-        }
-    }
-
-
-
-    @Override
-    public Figure tryRemove(Cell cell) {
-        if (!(cell.getContent() instanceof Fruit)) {
-            return super.tryRemove(cell);
-        }else return null;
     }
 }
