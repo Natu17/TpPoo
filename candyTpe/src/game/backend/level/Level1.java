@@ -15,8 +15,8 @@ public class Level1 extends Grid {
 		fillCells(candyGeneratorCell);
 	}
 
-	private static int REQUIRED_SCORE = 5000;
-	private static int MAX_MOVES = 20; 
+	private static int REQUIRED_SCORE = 50000;
+	private static int MAX_MOVES = 20;
 	
 
 	

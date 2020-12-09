@@ -50,17 +50,17 @@ public class Level3 extends Grid {
             Candy candy = new Candy(CandyColor.values()[i]);
             return (Element) candy;
         } else {
+            level3State.addFruits();
             if (random) {
                 Fruit hazelnut = new Fruit(FruitType.HAZELNUT);
                 hazelnut.setExplode(false);
-                level3State.addFruits(hazelnut);
                 return (Element) hazelnut;
             } else {
                 Fruit cherry = new Fruit(FruitType.CHERRY);
                 cherry.setExplode(false);
-                level3State.addFruits(cherry);
                 return (Element) cherry;
             }
+
         }
 
     };
@@ -104,7 +104,7 @@ public class Level3 extends Grid {
             return fruitsAppeared;
         }
 
-        public void addFruits(Fruit fruit) {
+        public void addFruits() {
             fruitsAppeared++;
         }
 

@@ -15,9 +15,9 @@ import java.util.function.Supplier;
 
 public class Level2 extends Grid {
 
-    private static int MAX_BOMBS = 10;
-    private static int MAX_MOVES = 15;
-    private static double PROBABILITY = 0.05;
+    private static int MAX_BOMBS = 25;
+    private static int MAX_MOVES = 20;
+    private static double PROBABILITY = 0.06;
     private Level2State level2State;
 
     @Override
@@ -102,10 +102,10 @@ public class Level2 extends Grid {
 
     @Override
     public void cellExplosion(Element e) {
-        super.cellExplosion(e);
         if (e instanceof TimeBombCandy) {
             level2State.removeBombs((TimeBombCandy) e);
         }
+        super.cellExplosion(e);
 
 
     }
