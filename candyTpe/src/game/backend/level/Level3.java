@@ -17,7 +17,7 @@ public class Level3 extends Grid {
 
     private static int MAX_MOVES = 50;
     private static int MAX_FRUITS = 10;
-    private static double PROBABILITY = 0.1;
+    private static double PROBABILITY = 0.06;
     private Level3State level3State;
 
 
@@ -115,7 +115,7 @@ public class Level3 extends Grid {
         @Override
         public String getState() {
             if(gameOver()) return super.getState();
-            return super.getState() + " Movimientos " + String.valueOf(maxMoves - getMoves()) + " Frutas " + String.valueOf(requiredFruits);
+            return super.getState() + " Movimientos: " + String.valueOf(maxMoves - getMoves()) + " Frutas: " + String.valueOf(requiredFruits);
         }
     }
 }

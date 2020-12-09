@@ -86,7 +86,7 @@ public class Level2 extends Grid {
             maxBombs --;
         }
 
-        public boolean gameOver() { return playerWon() || (timeBombCandiesNow.size()!=0 && timeBombCandiesNow.get(0).getMoves() == 0); }
+        public boolean gameOver() { return playerWon() || (timeBombCandiesNow.size()!=0 && timeBombCandiesNow.get(0).getMoves() <= 0); }
 
         public boolean playerWon() {
             return maxBombs == 0;

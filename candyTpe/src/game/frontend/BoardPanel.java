@@ -28,7 +28,7 @@ public class BoardPanel extends TilePane {
 		}
 	}
 	public void setImage(int row, int column, Image image, Text text) {
-		cells[row][column].getChildren().add(new ImageView(image));
+		setImage(row,column,image);
 		DropShadow dropShadow = new DropShadow();
 		dropShadow.setRadius(3.0);
 		dropShadow.setOffsetX(3.0);
