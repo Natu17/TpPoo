@@ -39,7 +39,6 @@ public class Fruit extends Element {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        return false;
+        return this == o;
     }
 }

@@ -13,8 +13,8 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class CandyGeneratorCell extends Cell {
-	double prob;
-	Supplier<Element> createSpecial;
+	private double prob;
+	private Supplier<Element> createSpecial;
 
 	public CandyGeneratorCell(Grid grid, double prob, Supplier<Element> createSpecials) {
 		super(grid);
@@ -26,7 +26,7 @@ public class CandyGeneratorCell extends Cell {
 	public CandyGeneratorCell(Grid grid){
 		super(grid);
 		prob = 0;
-		createSpecial = ()->null;
+		createSpecial = null;
 	}
 
 
